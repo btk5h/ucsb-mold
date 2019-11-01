@@ -12,6 +12,9 @@
     "react-scripts": "3.2.0",
     "typescript": "3.6.4"
   },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
