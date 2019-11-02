@@ -1,0 +1,24 @@
+service: course-info
+app: sbcourses
+org: btk5h
+
+plugins:
+  - serverless-functions-base-path
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-west-2
+  environment:
+    UCSB_API_KEY: ${ssm:sbcourses-consumer-key}
+    UCSB_API_SECRET: ${ssm:sbcourses-consumer-secret}
+
+functions:
+  search:
+    handler: search.handler
+    events:
+      - http: GET courses/search
+
+custom:
+  functionsBasePath: src/functions
