@@ -1,25 +1,27 @@
-import React from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React, { Suspense } from "react"
+import { BrowserRouter as Router, Switch, Redirect, Route } from "react-router-dom"
+import tw from "tailwind.macro"
+
+const SearchPage = React.lazy(() => import("pages/Search"))
+
+const PageWrapper = tw.div`
+  bg-gray-100
+  h-screen
+  max-w-full
+`
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <PageWrapper>
+        <Suspense fallback={<div>Loading</div>}>
+          <Switch>
+            <Redirect exact from="/" to="/search"/>
+            <Route exact path="/search" component={SearchPage}/>
+          </Switch>
+        </Suspense>
+      </PageWrapper>
+    </Router>
   )
 }
 
