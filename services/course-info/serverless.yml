@@ -18,7 +18,10 @@ functions:
   search:
     handler: search.handler
     events:
-      - http: GET courses/search
+      - http:
+          method: get
+          path: courses/search
+          cors: true
 
 custom:
   functionsBasePath: src/functions

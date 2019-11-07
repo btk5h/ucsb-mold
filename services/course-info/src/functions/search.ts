@@ -6,6 +6,9 @@ export async function handler(event: APIGatewayEvent) {
   const response = await search(event.queryStringParameters)
 
   return {
-    body: JSON.stringify(response)
+    body: JSON.stringify(response),
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
   }
 }
