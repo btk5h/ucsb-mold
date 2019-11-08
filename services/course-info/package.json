@@ -19,6 +19,8 @@
   "scripts": {
     "setup-workspace": "run-s download-sources:* generate-types:*",
     "download-sources:curriculums": "download https://developer.ucsb.edu/sites/default/files/openapi/curriculums-v1.out_.api_.yml > src/api/generated/curriculums.yml",
-    "generate-types:curriculums": "swagger-to-ts src/api/generated/curriculums.yml -o src/api/generated/curriculums.d.ts --nowrapper"
+    "generate-types:curriculums": "swagger-to-ts src/api/generated/curriculums.yml -o src/api/generated/curriculums.d.ts --nowrapper",
+    "download-sources:quartercalendar": "download https://developer.ucsb.edu/sites/default/files/openapi/quartercalendar-v1-api.ucsb_.edu_.yaml > src/api/generated/quartercalendar.yml",
+    "generate-types:quartercalendar": "swagger-to-ts src/api/generated/quartercalendar.yml -o src/api/generated/quartercalendar.d.ts --nowrapper"
   }
 }
