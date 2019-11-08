@@ -6,7 +6,7 @@ const SearchPage = React.lazy(() => import("pages/Search"))
 
 const PageWrapper = tw.div`
   bg-gray-100
-  h-screen
+  h-full min-h-screen
   max-w-full
 `
 
