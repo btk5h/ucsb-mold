@@ -11,7 +11,7 @@ type APIResponse = ClassModel | WebApiInvalidModel | SimpleMessageModel
 
 export type SearchResourceOptions = {
   quarter: string
-  subjectCode?: string
+  subjectCode?: string | null
 }
 
 export const SearchResource = createResource<SearchResourceOptions, APIResponse>(

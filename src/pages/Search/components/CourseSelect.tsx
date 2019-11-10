@@ -58,6 +58,7 @@ const CourseSelect: React.FC<CourseSelectProps> = (props) => {
       onChange={onChange}
       filterPredicate={matches}
       itemToString={itemToString}
+      keyFunction={i => i}
     >
       {(item, { isHighlighted }) => (
         <Row isHighlighted={isHighlighted}>
