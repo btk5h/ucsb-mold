@@ -9,6 +9,7 @@
     "@types/react-cache": "^2.0.1",
     "@types/react-dom": "16.9.3",
     "downshift": "^3.4.1",
+    "json-stable-stringify": "^1.0.1",
     "ky": "^0.15.0",
     "react": "^16.11.0",
     "react-cache": "file:react-cache-2.0.0-alpha.0.tgz",

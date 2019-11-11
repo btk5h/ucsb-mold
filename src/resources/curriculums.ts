@@ -17,5 +17,5 @@ export type SearchResourceOptions = {
 export const SearchResource = createResource<SearchResourceOptions, APIResponse>(
   async options =>
     api.get("courses/search", { searchParams: {...options, pageSize: 100} as any }).json(),
-  JSON.stringify
+  stringify
 )
