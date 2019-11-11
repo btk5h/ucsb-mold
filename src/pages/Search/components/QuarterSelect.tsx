@@ -33,9 +33,13 @@ function quarterToString(q: Quarter): string {
   }
 }
 
+function mod(n: number, m: number): number {
+  return ((n % m) + m) % m
+}
+
 function adjustQuarter(q: YearQuarter, n: number): YearQuarter {
   const yearAdjustment = Math.floor((q.quarter + n - 1) / 4)
-  const newQuarter = ((Math.abs(q.quarter + n - 1) % 4) + 1) as Quarter
+  const newQuarter = mod(q.quarter + n - 1, 4) + 1 as Quarter
 
   return {
     year: String(Number(q.year) + yearAdjustment),
