@@ -55,5 +55,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "babelMacros": {
+    "styledComponents": {},
+    "tailwind": {
+      "styled": "styled-components/macro",
+      "config": "./src/tailwind.config.ts"
+    }
   }
 }
