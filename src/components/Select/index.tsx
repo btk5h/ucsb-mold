@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useCallback } from "react"
-import Downshift from "downshift"
+import React, { useCallback, useMemo, useState } from "react"
+import Downshift, { StateChangeOptions } from "downshift"
 import tw from "tailwind.macro"
 import styled from "styled-components/macro"
 
@@ -62,18 +62,32 @@ const Select = <T extends any>(props: SelectProps<T>) => {
     items,
     itemToString = (item: T) => String(item),
     filterPredicate = (inputValue: string | null, item: T) =>
-      !inputValue || itemToString(item).toLowerCase().includes(inputValue.toLowerCase()),
+      !inputValue ||
+      itemToString(item)
+        .toLowerCase()
+        .includes(inputValue.toLowerCase()),
     keyFunction = itemToString,
     children: renderItem,
     onChange
   } = props
 
   const [inputValue, setInputValue] = useState(itemToString(value))
-  const [focused, setFocused] = useState(false)
 
-  const onFocus = useCallback((openMenu: () => void) => {
+  const stateReducer = useCallback(
+    (state: object, changes: StateChangeOptions<T>) => {
+      switch (changes.type) {
+        case Downshift.stateChangeTypes.keyDownEscape:
+          return {
+            ...changes,
+            selectedItem: value,
+            inputValue: itemToString(value)
+          }
+      }
 
-  }, [])
+      return changes
+    },
+    [itemToString, value]
+  )
 
   const filteredItems = useMemo(
     () => items.filter(item => filterPredicate(inputValue, item)),
@@ -85,8 +99,9 @@ const Select = <T extends any>(props: SelectProps<T>) => {
       selectedItem={value}
       onChange={onChange}
       itemToString={itemToString}
-      inputValue={inputValue}
+      inputValue={inputValue || ""}
       onInputValueChange={setInputValue}
+      stateReducer={stateReducer}
     >
       {({
         getRootProps,
@@ -103,6 +118,10 @@ const Select = <T extends any>(props: SelectProps<T>) => {
           <Input
             {...(getInputProps({
               isOpen: isOpen && !!filteredItems.length,
+              onClick: () => {
+                openMenu()
+                setInputValue("")
+              },
               onFocus: () => {
                 openMenu()
                 setInputValue("")
