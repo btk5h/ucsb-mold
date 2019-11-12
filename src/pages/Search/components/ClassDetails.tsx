@@ -5,7 +5,7 @@ import { Class } from "api/generated/curriculums"
 import SectionDetails from "./SectionDetails"
 
 const Wrapper = tw.div`
-  my-2 p-6
+  my-4 p-8
   bg-white
   rounded-lg
   shadow
