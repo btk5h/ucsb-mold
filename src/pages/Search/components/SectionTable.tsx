@@ -30,6 +30,10 @@ const IndentedTableCell = tw(TableCell)`
   pl-10
 `
 
+const FlexStack = tw.div`
+  flex flex-col
+`
+
 type TimeLocationProps = {
   at: ClassTimeLocation
 }
@@ -38,9 +42,49 @@ const TimeLocation: React.FC<TimeLocationProps> = props => {
   const { at } = props
 
   return (
-    <>
+    <div>
       {at.days} at {at.beginTime} to {at.endTime} in {at.building} {at.room}
-    </>
+    </div>
+  )
+}
+
+type SectionRowProps = {
+  section: ClassSection,
+  indent?: boolean
+}
+
+const SectionRow: React.FC<SectionRowProps> = props => {
+  const { section, indent } = props
+
+  const FirstTableCell = indent ? IndentedTableCell : TableCell
+
+  return (
+    <tr>
+      <FirstTableCell minimize>
+        <CapacityIndicator
+          max={section.maxEnroll}
+          slotsFilled={section.enrolledTotal}
+        />
+      </FirstTableCell>
+      <TableCell>
+        <FlexStack>
+          {
+            section.timeLocations && section.timeLocations.map(tl => (
+              <TimeLocation at={tl}/>
+            ))
+          }
+        </FlexStack>
+      </TableCell>
+      <TableCell minimize>
+        <FlexStack>
+          {section.instructors && section.instructors.map(i => (
+            <div>
+              {i.instructor}
+            </div>
+          ))}
+        </FlexStack>
+      </TableCell>
+    </tr>
   )
 }
 
@@ -53,44 +97,10 @@ const Section: React.FC<SectionProps> = props => {
 
   return (
     <>
-      <tr>
-        <TableCell minimize>
-          <CapacityIndicator
-            max={section.maxEnroll}
-            slotsFilled={section.enrolledTotal}
-          />
-        </TableCell>
-        <TableCell>
-          {
-            section.timeLocations && section.timeLocations.map(tl => (
-              <TimeLocation at={tl}/>
-            ))
-          }
-        </TableCell>
-        <TableCell minimize>
-          {section.instructors && section.instructors.map(i => i.instructor)}
-        </TableCell>
-      </tr>
+      <SectionRow section={section} />
       {
         section.secondarySections.map(s => (
-          <tr>
-            <IndentedTableCell minimize>
-              <CapacityIndicator
-                max={s.maxEnroll}
-                slotsFilled={s.enrolledTotal}
-              />
-            </IndentedTableCell>
-            <TableCell>
-              {
-                s.timeLocations && s.timeLocations.map(tl => (
-                  <TimeLocation at={tl}/>
-                ))
-              }
-            </TableCell>
-            <TableCell minimize>
-              {s.instructors && s.instructors.map(i => i.instructor)}
-            </TableCell>
-          </tr>
+          <SectionRow section={s} indent />
         ))
       }
     </>
