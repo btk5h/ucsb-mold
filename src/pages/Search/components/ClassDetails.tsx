@@ -2,7 +2,7 @@ import React from "react"
 import tw from "tailwind.macro"
 
 import { Class } from "api/generated/curriculums"
-import SectionDetails from "./SectionDetails"
+import SectionTable from "pages/Search/components/SectionTable"
 
 const Wrapper = tw.div`
   my-4 p-8
@@ -63,10 +63,7 @@ const ClassDetails: React.FC<ClassDetailsProps> = props => {
       <Units>{unitsString(info)}</Units>
       {gradingOptionToString(info.gradingOption)}
       <Description>{info.description}</Description>
-      {info.classSections &&
-        info.classSections.map(s => (
-          <SectionDetails key={s.section} section={s} />
-        ))}
+      <SectionTable sections={info.classSections} />
     </Wrapper>
   )
 }
