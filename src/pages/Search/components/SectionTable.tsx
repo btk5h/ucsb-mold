@@ -70,7 +70,7 @@ const SectionRow: React.FC<SectionRowProps> = props => {
         <FlexStack>
           {
             section.timeLocations && section.timeLocations.map(tl => (
-              <TimeLocation at={tl}/>
+              <TimeLocation key={JSON.stringify(tl)} at={tl}/>
             ))
           }
         </FlexStack>
@@ -78,7 +78,7 @@ const SectionRow: React.FC<SectionRowProps> = props => {
       <TableCell minimize>
         <FlexStack>
           {section.instructors && section.instructors.map(i => (
-            <div>
+            <div key={i.instructor}>
               {i.instructor}
             </div>
           ))}
@@ -100,7 +100,7 @@ const Section: React.FC<SectionProps> = props => {
       <SectionRow section={section} />
       {
         section.secondarySections.map(s => (
-          <SectionRow section={s} indent />
+          <SectionRow key={s.section}  section={s} indent />
         ))
       }
     </>
@@ -118,9 +118,11 @@ const SectionTable: React.FC<SectionTableProps> = props => {
 
   return (
     <Wrapper>
-      {
-        groupedSections.map(s => <Section section={s}/>)
-      }
+      <tbody>
+        {
+          groupedSections.map(s => <Section key={s.section} section={s}/>)
+        }
+      </tbody>
     </Wrapper>
   )
 }
