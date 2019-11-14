@@ -96,6 +96,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
 
   return (
     <Downshift
+      defaultHighlightedIndex={0}
       selectedItem={value}
       onChange={onChange}
       itemToString={itemToString}
