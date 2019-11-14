@@ -11,6 +11,7 @@
     "downshift": "^3.4.1",
     "json-stable-stringify": "^1.0.1",
     "ky": "^0.15.0",
+    "qs": "^6.9.1",
     "react": "^16.11.0",
     "react-cache": "file:react-cache-2.0.0-alpha.0.tgz",
     "react-dom": "^16.11.0",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@manifoldco/swagger-to-ts": "^1.4.0",
     "@types/json-stable-stringify": "^1.0.32",
+    "@types/qs": "^6.9.0",
     "@types/react-router-dom": "^5.1.2",
     "@types/styled-components": "^4.1.20",
     "download-cli": "^1.1.1",

@@ -1,5 +1,7 @@
-import React, { Suspense, useState } from "react"
+import React, { Suspense, useState, useEffect } from "react"
 import tw from "tailwind.macro"
+import { useHistory, useLocation } from "react-router-dom"
+import qs from "qs"
 
 import { SearchResource, SearchResourceOptions } from "resources/curriculums"
 import CourseSelect from "./components/CourseSelect"
@@ -51,34 +53,51 @@ const Results: React.FC<ResultsProps> = props => {
   return (
     <div>
       {info.classes &&
-      info.classes.map((c: Class) => (
-        <ClassDetails key={c.courseId} class={c}/>
-      ))}
+        info.classes.map((c: Class) => (
+          <ClassDetails key={c.courseId} class={c} />
+        ))}
     </div>
   )
 }
 
+function useQuery() {
+  const location = useLocation()
+  return qs.parse(location.search, { ignoreQueryPrefix: true })
+}
+
+function useObjectInURL(query: any) {
+  const history = useHistory()
+  const search = qs.stringify(query)
+
+  useEffect(() => {
+    history.replace({ search })
+  }, [history, search])
+}
+
 const Search: React.FC = () => {
-  const [quarter, setQuarter] = useState()
-  const [course, setCourse] = useState("ANTH")
+  const params = useQuery()
+  const [quarter, setQuarter] = useState(params.quarter)
+  const [course, setCourse] = useState(params.subjectCode || "ANTH")
 
   const query = {
     quarter,
     subjectCode: course
   }
 
+  useObjectInURL(query)
+
   return (
     <Wrapper>
       <FormWrapper>
         <QuarterSelectSection>
-          <QuarterSelect value={quarter} onChange={setQuarter}/>
+          <QuarterSelect value={quarter} onChange={setQuarter} />
         </QuarterSelectSection>
         <CourseSelectSection>
-          <CourseSelect value={course} onChange={setCourse}/>
+          <CourseSelect value={course} onChange={setCourse} />
         </CourseSelectSection>
       </FormWrapper>
       <Suspense fallback={<div>Loading</div>}>
-        <Results query={query}/>
+        <Results query={query} />
       </Suspense>
     </Wrapper>
   )
