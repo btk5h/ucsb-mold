@@ -108,7 +108,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
         highlightedIndex
       }) => (
         <Wrapper {...getRootProps()}>
-          <Label {...getLabelProps}>{label}</Label>
+          <Label {...getLabelProps()}>{label}</Label>
           <Input
             {...(getInputProps({
               isOpen: isOpen && !!filteredItems.length,
