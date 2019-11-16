@@ -8,3 +8,6 @@ export const Input = tw.input`
   focus:border-blue-500
   outline-none
 `
+export const Label = tw.label`
+  font-semibold
+`

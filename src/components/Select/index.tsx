@@ -3,16 +3,12 @@ import Downshift, { StateChangeOptions } from "downshift"
 import tw from "tailwind.macro"
 import styled from "styled-components/macro"
 
-import { Input } from "components/Input"
+import { Input, Label } from "components/Input"
 
 const Wrapper = tw.div`
   w-full
   inline-block
   relative
-`
-
-const Label = tw.label`
-  font-semibold
 `
 
 type MenuProps = {
