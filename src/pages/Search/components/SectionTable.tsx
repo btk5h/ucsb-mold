@@ -6,7 +6,12 @@ import { ClassSection, ClassTimeLocation } from "api/generated/curriculums"
 import { groupSections, PrimaryClassSection } from "utils/classSections"
 import CapacityIndicator from "./CapacityIndicator"
 
-const Wrapper = tw.table`
+const Wrapper = tw.div`
+  max-w-full
+  overflow-scroll
+`
+
+const Table = tw.table`
   table-auto
   w-full
   rounded
@@ -22,7 +27,7 @@ const TableCell = styled.td<TableCellProps>`
     whitespace-no-wrap
     py-2 pl-1
   `};
-  
+
   ${props => props.minimize && tw`w-px`};
 `
 
@@ -49,7 +54,7 @@ const TimeLocation: React.FC<TimeLocationProps> = props => {
 }
 
 type SectionRowProps = {
-  section: ClassSection,
+  section: ClassSection
   indent?: boolean
 }
 
@@ -68,20 +73,18 @@ const SectionRow: React.FC<SectionRowProps> = props => {
       </FirstTableCell>
       <TableCell>
         <FlexStack>
-          {
-            section.timeLocations && section.timeLocations.map(tl => (
-              <TimeLocation key={JSON.stringify(tl)} at={tl}/>
-            ))
-          }
+          {section.timeLocations &&
+            section.timeLocations.map(tl => (
+              <TimeLocation key={JSON.stringify(tl)} at={tl} />
+            ))}
         </FlexStack>
       </TableCell>
       <TableCell minimize>
         <FlexStack>
-          {section.instructors && section.instructors.map(i => (
-            <div key={i.instructor}>
-              {i.instructor}
-            </div>
-          ))}
+          {section.instructors &&
+            section.instructors.map(i => (
+              <div key={i.instructor}>{i.instructor}</div>
+            ))}
         </FlexStack>
       </TableCell>
     </tr>
@@ -98,11 +101,9 @@ const Section: React.FC<SectionProps> = props => {
   return (
     <>
       <SectionRow section={section} />
-      {
-        section.secondarySections.map(s => (
-          <SectionRow key={s.section}  section={s} indent />
-        ))
-      }
+      {section.secondarySections.map(s => (
+        <SectionRow key={s.section} section={s} indent />
+      ))}
     </>
   )
 }
@@ -118,11 +119,13 @@ const SectionTable: React.FC<SectionTableProps> = props => {
 
   return (
     <Wrapper>
-      <tbody>
-        {
-          groupedSections.map(s => <Section key={s.section} section={s}/>)
-        }
-      </tbody>
+      <Table>
+        <tbody>
+          {groupedSections.map(s => (
+            <Section key={s.section} section={s} />
+          ))}
+        </tbody>
+      </Table>
     </Wrapper>
   )
 }
