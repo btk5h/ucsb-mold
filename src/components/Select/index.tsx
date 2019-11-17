@@ -19,7 +19,7 @@ const Menu = styled.ul<MenuProps>`
   ${tw`
     w-full
     mt-1
-    absolute
+    absolute z-50
     overflow-y-auto
     rounded 
     shadow
