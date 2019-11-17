@@ -1,5 +1,10 @@
 import React, { Suspense } from "react"
-import { BrowserRouter as Router, Switch, Redirect, Route } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route
+} from "react-router-dom"
 import tw from "tailwind.macro"
 
 const SearchPage = React.lazy(() => import("pages/Search"))
@@ -16,8 +21,8 @@ const App: React.FC = () => {
       <PageWrapper>
         <Suspense fallback={<div>Loading</div>}>
           <Switch>
-            <Redirect exact from="/" to="/search"/>
-            <Route exact path="/search" component={SearchPage}/>
+            <Redirect exact from="/" to="/search" />
+            <Route exact path="/search" component={SearchPage} />
           </Switch>
         </Suspense>
       </PageWrapper>

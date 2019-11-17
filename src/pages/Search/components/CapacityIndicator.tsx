@@ -27,7 +27,11 @@ const CapacityIndicator: React.FC<CapacityIndicatorProps> = props => {
       ? tw`bg-yellow-200 text-yellow-800`
       : tw`bg-green-200 text-green-800`
 
-  return <IndicatorPill style={style}>{slotsAvailable} / {max || 0}</IndicatorPill>
+  return (
+    <IndicatorPill style={style}>
+      {slotsAvailable} / {max || 0}
+    </IndicatorPill>
+  )
 }
 
 export default CapacityIndicator

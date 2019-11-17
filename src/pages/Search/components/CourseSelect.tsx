@@ -17,7 +17,8 @@ function matches(inputValue: string | null, item: string) {
   const normalInput = inputValue.toLowerCase()
 
   return (
-    item.toLowerCase().includes(normalInput) || (courses as any)[item].toLowerCase().includes(normalInput)
+    item.toLowerCase().includes(normalInput) ||
+    (courses as any)[item].toLowerCase().includes(normalInput)
   )
 }
 
@@ -44,11 +45,8 @@ type CourseSelectProps = {
   onChange: (newValue: string) => void
 }
 
-const CourseSelect: React.FC<CourseSelectProps> = (props) => {
-  const {
-    value,
-    onChange
-  } = props
+const CourseSelect: React.FC<CourseSelectProps> = props => {
+  const { value, onChange } = props
 
   return (
     <Select

@@ -39,4 +39,3 @@ export function groupSections(
 
   return output
 }
-
