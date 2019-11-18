@@ -33,6 +33,19 @@ type RenderPropOptions = {
   isHighlighted: boolean
 }
 
+const DefaultRow = styled.div<RenderPropOptions>`
+  ${tw`
+    py-2
+  `}
+  ${props => props.isHighlighted && tw`bg-green-200`}
+`
+
+function defaultRowRenderer<T>(itemToString: (item: T) => string) {
+  return (item: T, { isHighlighted }: RenderPropOptions) => (
+    <DefaultRow isHighlighted={isHighlighted}>{itemToString(item)}</DefaultRow>
+  )
+}
+
 type SelectProps<T> = {
   label: string
   value: T
@@ -40,7 +53,7 @@ type SelectProps<T> = {
   itemToString?: (item: T) => string
   filterPredicate?: (inputValue: string | null, item: T) => boolean
   keyFunction?: (item: T) => string
-  children: (item: T, options: RenderPropOptions) => React.ReactElement
+  children?: (item: T, options: RenderPropOptions) => React.ReactElement
   onChange: (selection: T) => void
 }
 
@@ -56,7 +69,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
         .toLowerCase()
         .includes(inputValue.toLowerCase()),
     keyFunction = itemToString,
-    children: renderItem,
+    children: renderItem = defaultRowRenderer(itemToString),
     onChange
   } = props
 
