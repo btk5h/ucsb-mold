@@ -35,7 +35,7 @@ type RenderPropOptions = {
 
 const DefaultRow = styled.div<RenderPropOptions>`
   ${tw`
-    py-2
+    px-4 py-2
   `}
   ${props => props.isHighlighted && tw`bg-green-200`}
 `
