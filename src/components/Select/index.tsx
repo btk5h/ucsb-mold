@@ -152,3 +152,17 @@ const Select = <T extends any>(props: SelectProps<T>) => {
 }
 
 export default Select
+
+type ObjectSelectOptions = {
+  items: { [key: string]: string }
+}
+
+export function objectSelect(options: ObjectSelectOptions) {
+  const { items } = options
+
+  return {
+    items: Object.keys(items),
+    itemToString: (i: string) => items[i],
+    keyFunction: (i: string) => i
+  }
+}
