@@ -4,6 +4,7 @@ import styled from "styled-components/macro"
 
 import { ClassSection, ClassTimeLocation } from "api/generated/curriculums"
 import { groupSections, PrimaryClassSection } from "utils/classSections"
+import { formatTime } from "utils/format"
 import CapacityIndicator from "./CapacityIndicator"
 
 const Wrapper = tw.div`
@@ -48,7 +49,8 @@ const TimeLocation: React.FC<TimeLocationProps> = props => {
 
   return (
     <div>
-      {at.days} at {at.beginTime} to {at.endTime} in {at.building} {at.room}
+      {at.days} at {at.beginTime && formatTime(at.beginTime)} to{" "}
+      {at.endTime && formatTime(at.endTime)} in {at.building} {at.room}
     </div>
   )
 }
