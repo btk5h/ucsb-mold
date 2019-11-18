@@ -6,21 +6,13 @@ import qs from "qs"
 import { SearchResource, SearchResourceOptions } from "resources/curriculums"
 import CourseSelect from "./components/CourseSelect"
 import QuarterSelect from "./components/QuarterSelect"
+import CourseLevelSelect from "./components/CourseLevelSelect"
 import ClassDetails from "./components/ClassDetails"
 import { Class } from "api/generated/curriculums"
 
 const Wrapper = tw.div`
   mx-auto
   max-w-6xl
-`
-
-const Input = tw.input`
-  w-full     
-  px-4 py-2
-  rounded
-  shadow
-  focus:border-blue-500
-  outline-none
 `
 
 const FormWrapper = tw.div`
@@ -78,10 +70,16 @@ const Search: React.FC = () => {
   const params = useQuery()
   const [quarter, setQuarter] = useState(params.quarter)
   const [course, setCourse] = useState(params.subjectCode || "ANTH")
+  const [courseLevel, setCourseLevel] = useState("")
 
   const query = {
     quarter,
     subjectCode: course
+  }
+
+  if (courseLevel) {
+    // @ts-ignore
+    query.objLevelCode = courseLevel
   }
 
   useObjectInURL(query)
@@ -95,6 +93,9 @@ const Search: React.FC = () => {
         <CourseSelectSection>
           <CourseSelect value={course} onChange={setCourse} />
         </CourseSelectSection>
+        <FormSection>
+          <CourseLevelSelect value={courseLevel} onChange={setCourseLevel} />
+        </FormSection>
       </FormWrapper>
       <Suspense fallback={<div>Loading</div>}>
         <Results query={query} />

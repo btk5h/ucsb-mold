@@ -2,7 +2,11 @@ import ky from "ky"
 import { unstable_createResource as createResource } from "react-cache"
 import stringify from "json-stable-stringify"
 
-import { ClassModel, SimpleMessageModel, WebApiInvalidModel } from "api/generated/curriculums"
+import {
+  ClassModel,
+  SimpleMessageModel,
+  WebApiInvalidModel
+} from "api/generated/curriculums"
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 const api = ky.create({ prefixUrl: API_ENDPOINT })
@@ -14,8 +18,15 @@ export type SearchResourceOptions = {
   subjectCode?: string | null
 }
 
-export const SearchResource = createResource<SearchResourceOptions, APIResponse>(
+export const SearchResource = createResource<
+  SearchResourceOptions,
+  APIResponse
+>(
   async options =>
-    api.get("courses/search", { searchParams: {...options, pageSize: 100} as any }).json(),
+    api
+      .get("courses/search", {
+        searchParams: { ...options, pageSize: 100 } as any
+      })
+      .json(),
   stringify
 )

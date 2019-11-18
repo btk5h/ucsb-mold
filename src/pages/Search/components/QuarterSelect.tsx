@@ -1,6 +1,4 @@
 import React, { Suspense, useCallback } from "react"
-import tw from "tailwind.macro"
-import styled from "styled-components/macro"
 
 import Select from "components/Select"
 import { CurrentQuarterResource } from "resources/quartercalendar"
@@ -39,7 +37,7 @@ function mod(n: number, m: number): number {
 
 function adjustQuarter(q: YearQuarter, n: number): YearQuarter {
   const yearAdjustment = Math.floor((q.quarter + n - 1) / 4)
-  const newQuarter = mod(q.quarter + n - 1, 4) + 1 as Quarter
+  const newQuarter = (mod(q.quarter + n - 1, 4) + 1) as Quarter
 
   return {
     year: String(Number(q.year) + yearAdjustment),
@@ -50,39 +48,6 @@ function adjustQuarter(q: YearQuarter, n: number): YearQuarter {
 function itemToString(item: YearQuarter) {
   return `${quarterToString(item.quarter)} ${item.year}`
 }
-
-/*
-function matches(inputValue: string | null, item: string) {
-  if (!inputValue) {
-    return true
-  }
-
-  const normalInput = inputValue.toLowerCase()
-
-  return (
-    item.toLowerCase().includes(normalInput) || (courses as any)[item].toLowerCase().includes(normalInput)
-  )
-}
-
- */
-
-type RowProps = {
-  isHighlighted: boolean
-}
-
-const Row = styled.div<RowProps>`
-  ${tw`
-    py-2
-  `}
-  ${props => props.isHighlighted && tw`bg-green-200`}
-`
-
-const CourseCode = tw.span`
-  px-2 py-1 mx-2
-  text-xs font-bold text-indigo-700
-  rounded-full
-  bg-indigo-200
-`
 
 const QUARTERS = [1, 0, -1, -2, -3, -4]
 
@@ -110,13 +75,7 @@ const CourseSelectInternal: React.FC<CourseSelectInternalProps> = props => {
       items={quarters}
       onChange={onChange}
       itemToString={itemToString}
-    >
-      {(q, { isHighlighted }) => (
-        <Row isHighlighted={isHighlighted}>
-          {quarterToString(q.quarter)} {q.year}
-        </Row>
-      )}
-    </Select>
+    />
   )
 }
 
