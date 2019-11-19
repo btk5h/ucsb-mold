@@ -1,0 +1,22 @@
+service: sbcourses-resources
+
+provider:
+  name: aws
+  region: us-west-2
+  stage: ${opt:stage, "dev"}
+
+resources:
+  Resources:
+    Backend:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: sbcourses-backend-${self:provider.stage}
+  Outputs:
+    BackendId:
+      Value: !Ref Backend
+      Export:
+        Name: sbcourses-${self:provider.stage}-api-id
+    BackendResourceId:
+      Value: !GetAtt Backend.RootResourceId
+      Export:
+        Name: sbcourses-${self:provider.stage}-resource-id
