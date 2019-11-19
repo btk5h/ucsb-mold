@@ -47,6 +47,10 @@ type ClassMeetingColumnProps = {
 const ClassMeetingColumns: React.FC<ClassMeetingColumnProps> = props => {
   const { meetings } = props
 
+  if (meetings.length === 0) {
+    return <TableCell colSpan={3}>No meeting information</TableCell>
+  }
+
   return (
     <>
       <TableCell>
