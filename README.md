@@ -13,6 +13,18 @@ yarn install
 yarn setup-workspace
 ```
 
+You will also need to deploy an instance of the backend to your AWS account. Refer to the
+[services README](services/README.md) for more details.
+
+You will need to set an environment variable containing the base url of the backend as `REACT_APP_API_ENDPOINT`.
+You can do this by creating a `.env.development.local` file with the contents
+
+```
+REACT_APP_API_ENDPOINT=https://example-api-endpoint.amazonaws.com/dev/
+```
+
+replacing `https://example-api-endpoint.amazonaws.com/dev/` with a link to your backend.
+
 This project uses [Create React App](https://github.com/facebook/create-react-app).
 
 To run the app locally in development mode:
