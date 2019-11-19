@@ -9,7 +9,7 @@ import CapacityIndicator from "./CapacityIndicator"
 
 const Wrapper = tw.div`
   max-w-full
-  overflow-scroll
+  overflow-auto
 `
 
 const Table = tw.table`
