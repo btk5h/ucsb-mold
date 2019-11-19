@@ -40,18 +40,42 @@ const FlexStack = tw.div`
   flex flex-col
 `
 
-type TimeLocationProps = {
-  at: ClassTimeLocation
+type ClassMeetingColumnProps = {
+  meetings: ClassTimeLocation[]
 }
 
-const TimeLocation: React.FC<TimeLocationProps> = props => {
-  const { at } = props
+const ClassMeetingColumns: React.FC<ClassMeetingColumnProps> = props => {
+  const { meetings } = props
 
   return (
-    <div>
-      {at.days} at {at.beginTime && formatTime(at.beginTime)} to{" "}
-      {at.endTime && formatTime(at.endTime)} in {at.building} {at.room}
-    </div>
+    <>
+      <TableCell>
+        <FlexStack>
+          {meetings.map((m, i) => (
+            <span key={i}>{m.days}</span>
+          ))}
+        </FlexStack>
+      </TableCell>
+      <TableCell>
+        <FlexStack>
+          {meetings.map((m, i) => (
+            <span key={i}>
+              {m.beginTime && formatTime(m.beginTime)} -{" "}
+              {m.endTime && formatTime(m.endTime)}
+            </span>
+          ))}
+        </FlexStack>
+      </TableCell>
+      <TableCell>
+        <FlexStack>
+          {meetings.map((m, i) => (
+            <span key={i}>
+              {m.building} {m.room}
+            </span>
+          ))}
+        </FlexStack>
+      </TableCell>
+    </>
   )
 }
 
@@ -73,14 +97,7 @@ const SectionRow: React.FC<SectionRowProps> = props => {
           slotsFilled={section.enrolledTotal}
         />
       </FirstTableCell>
-      <TableCell>
-        <FlexStack>
-          {section.timeLocations &&
-            section.timeLocations.map(tl => (
-              <TimeLocation key={JSON.stringify(tl)} at={tl} />
-            ))}
-        </FlexStack>
-      </TableCell>
+      <ClassMeetingColumns meetings={section.timeLocations || []} />
       <TableCell minimize>
         <FlexStack>
           {section.instructors &&
