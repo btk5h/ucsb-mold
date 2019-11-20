@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react"
+import React, { Suspense, useCallback, useState, useEffect } from "react"
 import tw from "tailwind.macro"
 import { useHistory, useLocation } from "react-router-dom"
 import qs from "qs"
@@ -21,6 +21,13 @@ const FormWrapper = tw.div`
 
 const FormSection = tw.div`
   w-full
+`
+
+const FormButton = tw.button`
+  w-full
+  py-4 mt-3
+  rounded
+  hover:bg-gray-300
 `
 
 const QuarterSelectSection = tw(FormSection)`
@@ -72,6 +79,12 @@ const Search: React.FC = () => {
   const [course, setCourse] = useState(params.subjectCode || "ANTH")
   const [courseLevel, setCourseLevel] = useState("")
 
+  const [advancedSearch, setAdvancedSearch] = useState(false)
+
+  const toggleAdvancedSearch = useCallback(() => {
+    setAdvancedSearch(prevState => !prevState)
+  }, [])
+
   const query = {
     quarter,
     subjectCode: course
@@ -93,9 +106,14 @@ const Search: React.FC = () => {
         <CourseSelectSection>
           <CourseSelect value={course} onChange={setCourse} />
         </CourseSelectSection>
-        <FormSection>
-          <CourseLevelSelect value={courseLevel} onChange={setCourseLevel} />
-        </FormSection>
+        {advancedSearch && (
+          <FormSection>
+            <CourseLevelSelect value={courseLevel} onChange={setCourseLevel} />
+          </FormSection>
+        )}
+        <FormButton onClick={toggleAdvancedSearch}>
+          {advancedSearch ? "Hide" : "Show"} Advanced Search
+        </FormButton>
       </FormWrapper>
       <Suspense fallback={<div>Loading</div>}>
         <Results query={query} />
