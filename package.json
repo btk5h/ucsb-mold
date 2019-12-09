@@ -20,6 +20,10 @@
   },
   "devDependencies": {
     "@manifoldco/swagger-to-ts": "^1.4.0",
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8",
     "@types/jest": "24.0.21",
     "@types/json-stable-stringify": "^1.0.32",
     "@types/node": "12.12.5",
@@ -46,7 +50,9 @@
     "download-sources:curriculums": "download https://developer.ucsb.edu/sites/default/files/openapi/curriculums-v1.out_.api_.yml > src/api/generated/curriculums.yml",
     "generate-types:curriculums": "swagger-to-ts src/api/generated/curriculums.yml -o src/api/generated/curriculums.d.ts --nowrapper",
     "download-sources:quartercalendar": "download https://developer.ucsb.edu/sites/default/files/openapi/quartercalendar-v1-api.ucsb_.edu_.yaml > src/api/generated/quartercalendar.yml",
-    "generate-types:quartercalendar": "swagger-to-ts src/api/generated/quartercalendar.yml -o src/api/generated/quartercalendar.d.ts --nowrapper"
+    "generate-types:quartercalendar": "swagger-to-ts src/api/generated/quartercalendar.yml -o src/api/generated/quartercalendar.d.ts --nowrapper",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md,html}": [

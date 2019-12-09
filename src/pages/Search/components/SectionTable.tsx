@@ -9,14 +9,15 @@ import CapacityIndicator from "./CapacityIndicator"
 
 const Wrapper = tw.div`
   max-w-full
+  rounded
+  px-2 pt-2 pb-1
   overflow-auto
+  bg-gray-100
 `
 
 const Table = tw.table`
   table-auto
   w-full
-  rounded
-  bg-gray-300
 `
 
 type TableCellProps = {
@@ -26,7 +27,7 @@ type TableCellProps = {
 const TableCell = styled.td<TableCellProps>`
   ${tw`
     whitespace-no-wrap
-    py-2 pl-1
+    p-2
   `};
 
   ${props => props.minimize && tw`w-px`};
@@ -34,6 +35,17 @@ const TableCell = styled.td<TableCellProps>`
 
 const IndentedTableCell = tw(TableCell)`
   pl-10
+`
+
+const TableHeader = styled(TableCell).attrs({ as: "th" })`
+  ${tw`
+    text-left
+    pt-1
+    `};
+`
+
+const NoMeetingInformation = tw(TableCell)`
+  text-red-500 italic
 `
 
 const FlexStack = tw.div`
@@ -48,7 +60,11 @@ const ClassMeetingColumns: React.FC<ClassMeetingColumnProps> = props => {
   const { meetings } = props
 
   if (meetings.length === 0) {
-    return <TableCell colSpan={3}>No meeting information</TableCell>
+    return (
+      <NoMeetingInformation colSpan={3}>
+        No meeting information
+      </NoMeetingInformation>
+    )
   }
 
   return (
@@ -143,6 +159,15 @@ const SectionTable: React.FC<SectionTableProps> = props => {
   return (
     <Wrapper>
       <Table>
+        <thead>
+          <tr>
+            <TableHeader>Space</TableHeader>
+            <TableHeader>Days</TableHeader>
+            <TableHeader>Time</TableHeader>
+            <TableHeader>Location</TableHeader>
+            <TableHeader>Instructors</TableHeader>
+          </tr>
+        </thead>
         <tbody>
           {groupedSections.map(s => (
             <Section key={s.section} section={s} />

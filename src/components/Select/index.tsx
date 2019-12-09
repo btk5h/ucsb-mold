@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState, useEffect } from "react"
 import Downshift, { StateChangeOptions } from "downshift"
 import tw from "tailwind.macro"
 import styled from "styled-components/macro"
@@ -50,6 +50,7 @@ type SelectProps<T> = {
   label: string
   value: T
   items: T[]
+  autoDetectInitialValue?: boolean
   itemToString?: (item: T) => string
   filterPredicate?: (inputValue: string | null, item: T) => boolean
   keyFunction?: (item: T) => string
@@ -62,6 +63,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
     label,
     value,
     items,
+    autoDetectInitialValue = false,
     itemToString = (item: T) => String(item),
     filterPredicate = (inputValue: string | null, item: T) =>
       !inputValue ||
@@ -95,6 +97,12 @@ const Select = <T extends any>(props: SelectProps<T>) => {
     () => items.filter(item => filterPredicate(inputValue, item)),
     [items, filterPredicate, inputValue]
   )
+
+  useEffect(() => {
+    if (autoDetectInitialValue && !value) {
+      onChange(items[0])
+    }
+  }, [autoDetectInitialValue, items, onChange, value])
 
   return (
     <Downshift

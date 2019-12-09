@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Ensure working directory is always this directory
+# https://stackoverflow.com/q/6393551
+SCRIPT_PATH=${0%/*}
+if [ "$0" != "$SCRIPT_PATH" ] && [ "$SCRIPT_PATH" != "" ]; then
+    cd "$SCRIPT_PATH" || exit
+fi
+
+(cd ./resources/ || exit; sls deploy -v "$@")
+(cd ./course-info/ || exit; sls deploy -v "$@")
