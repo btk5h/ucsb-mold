@@ -3,30 +3,12 @@ import Downshift, { StateChangeOptions } from "downshift"
 import tw from "tailwind.macro"
 import styled from "styled-components/macro"
 
-import { Input, Label } from "components/Input"
+import { Input, Label, Menu } from "components/Input"
 
 const Wrapper = tw.div`
   w-full
   inline-block
   relative
-`
-
-type MenuProps = {
-  isHidden: boolean
-}
-
-const Menu = styled.ul<MenuProps>`
-  ${tw`
-    w-full
-    mt-1
-    absolute z-50
-    overflow-y-auto
-    rounded 
-    shadow
-    bg-white
-    `};
-  ${props => props.isHidden && tw`invisible`};
-  max-height: 20rem;
 `
 
 type RenderPropOptions = {
