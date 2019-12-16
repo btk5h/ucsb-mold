@@ -44,8 +44,8 @@ const ResultsSummary: React.FC<ResultsSummaryProps> = props => {
       <div ref={ref} />
       <Card sticky={!inView}>
         <div>
-          {formatQuarterString(query.quarter)} — {subject} (
-          {results.classes.length} results)
+          {formatQuarterString(query.quarter)} — {subject} ({results.total}{" "}
+          results)
         </div>
       </Card>
     </>
