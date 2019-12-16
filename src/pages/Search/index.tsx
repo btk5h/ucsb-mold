@@ -89,14 +89,16 @@ const Search: React.FC = () => {
     setAdvancedSearch(prevState => !prevState)
   }, [])
 
-  const query = {
+  const query: any = {
     quarter,
-    subjectCode: course
+    subjectCode: course,
+    objLevelCode: courseLevel
   }
 
-  if (courseLevel) {
-    // @ts-ignore
-    query.objLevelCode = courseLevel
+  for (const key of Object.keys(query)) {
+    if (!query[key]) {
+      delete query[key]
+    }
   }
 
   useObjectInURL(query)
