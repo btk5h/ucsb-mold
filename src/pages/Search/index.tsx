@@ -8,6 +8,7 @@ import CourseSelect from "./components/CourseSelect"
 import QuarterSelect from "./components/QuarterSelect"
 import CourseLevelSelect from "./components/CourseLevelSelect"
 import ClassDetails from "./components/ClassDetails"
+import ResultsSummary from "./components/ResultsSummary"
 import { Class } from "api/generated/curriculums"
 
 const Wrapper = tw.div`
@@ -43,14 +44,17 @@ type ResultsProps = {
 }
 
 const Results: React.FC<ResultsProps> = props => {
-  if (!props.query.quarter) {
+  const { query } = props
+
+  if (!query.quarter) {
     return <>Dude</>
   }
 
-  const info: any = SearchResource.read(props.query)
+  const info: any = SearchResource.read(query)
 
   return (
     <div>
+      <ResultsSummary query={query} results={info} />
       {info.classes &&
         info.classes.map((c: Class) => (
           <ClassDetails key={c.courseId} class={c} />
