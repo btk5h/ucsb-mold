@@ -1,10 +1,11 @@
 import React from "react"
 import tw from "tailwind.macro"
 
-import { Class } from "api/generated/curriculums"
+import { Class, GeneralEducation } from "api/generated/curriculums"
 import SectionTable from "pages/Search/components/SectionTable"
 
 const Wrapper = tw.div`
+  flex flex-col
   my-4 p-8
   bg-white
   rounded-lg
@@ -49,6 +50,42 @@ function unitsString(c: Class) {
   }
 }
 
+const GEListWrapper = tw.div`
+  mt-1
+`
+
+const GEPill = tw.span`
+  px-2 py-1 mr-1
+  bg-blue-500
+  rounded-full
+  text-white text-xs
+`
+
+type GeneralEducationProps = {
+  generalEducation: GeneralEducation[] | undefined
+  geCollege?: string
+}
+
+const GEList: React.FC<GeneralEducationProps> = props => {
+  const { generalEducation, geCollege = "ENGR" } = props
+
+  if (!generalEducation || generalEducation.length === 0) {
+    return null
+  }
+
+  return (
+    <GEListWrapper>
+      {generalEducation
+        .filter(ge => ge.geCollege === "UCSB" || ge.geCollege === geCollege)
+        .map(ge => (
+          <GEPill key={`${ge.geCollege} ${ge.geCode}`}>
+            {ge.geCode && ge.geCode.trim()}
+          </GEPill>
+        ))}
+    </GEListWrapper>
+  )
+}
+
 type ClassDetailsProps = {
   class: Class
 }
@@ -60,8 +97,11 @@ const ClassDetails: React.FC<ClassDetailsProps> = props => {
       <Title>
         <CourseId>{info.courseId}</CourseId> {info.title}
       </Title>
-      <Units>{unitsString(info)}</Units>
-      {gradingOptionToString(info.gradingOption)}
+      <div>
+        <Units>{unitsString(info)}</Units>
+        {gradingOptionToString(info.gradingOption)}
+      </div>
+      <GEList generalEducation={info.generalEducation} />
       <Description>{info.description}</Description>
       <SectionTable sections={info.classSections} />
     </Wrapper>
