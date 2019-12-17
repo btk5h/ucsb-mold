@@ -5,8 +5,13 @@ import styled from "styled-components/macro"
 import Select from "components/Select"
 import courses from "data/courses.json"
 
+const courseOptions: any = {
+  "": "All Courses",
+  ...courses
+}
+
 function itemToString(item: string) {
-  return (courses as any)[item]
+  return courseOptions[item]
 }
 
 function matches(inputValue: string | null, item: string) {
@@ -18,7 +23,7 @@ function matches(inputValue: string | null, item: string) {
 
   return (
     item.toLowerCase().includes(normalInput) ||
-    (courses as any)[item].toLowerCase().includes(normalInput)
+    courseOptions[item].toLowerCase().includes(normalInput)
   )
 }
 
@@ -28,13 +33,13 @@ type RowProps = {
 
 const Row = styled.div<RowProps>`
   ${tw`
-    py-2
+    p-2
   `}
   ${props => props.isHighlighted && tw`bg-green-200`}
 `
 
 const CourseCode = tw.span`
-  px-2 py-1 mx-2
+  px-2 py-1 mr-2
   text-xs font-bold text-indigo-700
   rounded-full
   bg-indigo-200
@@ -52,7 +57,7 @@ const CourseSelect: React.FC<CourseSelectProps> = props => {
     <Select
       label="Subject Area"
       value={value}
-      items={Object.keys(courses)}
+      items={Object.keys(courseOptions)}
       onChange={onChange}
       filterPredicate={matches}
       itemToString={itemToString}
@@ -60,7 +65,7 @@ const CourseSelect: React.FC<CourseSelectProps> = props => {
     >
       {(item, { isHighlighted }) => (
         <Row isHighlighted={isHighlighted}>
-          <CourseCode>{item}</CourseCode> {(courses as any)[item]}
+          {item && <CourseCode>{item}</CourseCode>} {courseOptions[item]}
         </Row>
       )}
     </Select>

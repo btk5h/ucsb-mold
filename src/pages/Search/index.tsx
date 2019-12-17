@@ -80,7 +80,7 @@ function useObjectInURL(query: any) {
 const Search: React.FC = () => {
   const params = useQuery()
   const [quarter, setQuarter] = useState(params.quarter)
-  const [course, setCourse] = useState(params.subjectCode || "ANTH")
+  const [course, setCourse] = useState(params.subjectCode || "")
   const [courseLevel, setCourseLevel] = useState("")
 
   const [advancedSearch, setAdvancedSearch] = useState(false)
