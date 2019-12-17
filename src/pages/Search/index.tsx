@@ -8,6 +8,7 @@ import CourseSelect from "./components/CourseSelect"
 import QuarterSelect from "./components/QuarterSelect"
 import CourseLevelSelect from "./components/CourseLevelSelect"
 import ClassDetails from "./components/ClassDetails"
+import ResultsSummary from "./components/ResultsSummary"
 import { Class } from "api/generated/curriculums"
 
 const Wrapper = tw.div`
@@ -43,14 +44,17 @@ type ResultsProps = {
 }
 
 const Results: React.FC<ResultsProps> = props => {
-  if (!props.query.quarter) {
+  const { query } = props
+
+  if (!query.quarter) {
     return <>Dude</>
   }
 
-  const info: any = SearchResource.read(props.query)
+  const info: any = SearchResource.read(query)
 
   return (
     <div>
+      <ResultsSummary query={query} results={info} />
       {info.classes &&
         info.classes.map((c: Class) => (
           <ClassDetails key={c.courseId} class={c} />
@@ -76,7 +80,7 @@ function useObjectInURL(query: any) {
 const Search: React.FC = () => {
   const params = useQuery()
   const [quarter, setQuarter] = useState(params.quarter)
-  const [course, setCourse] = useState(params.subjectCode || "ANTH")
+  const [course, setCourse] = useState(params.subjectCode || "")
   const [courseLevel, setCourseLevel] = useState("")
 
   const [advancedSearch, setAdvancedSearch] = useState(false)
@@ -85,14 +89,16 @@ const Search: React.FC = () => {
     setAdvancedSearch(prevState => !prevState)
   }, [])
 
-  const query = {
+  const query: any = {
     quarter,
-    subjectCode: course
+    subjectCode: course,
+    objLevelCode: courseLevel
   }
 
-  if (courseLevel) {
-    // @ts-ignore
-    query.objLevelCode = courseLevel
+  for (const key of Object.keys(query)) {
+    if (!query[key]) {
+      delete query[key]
+    }
   }
 
   useObjectInURL(query)

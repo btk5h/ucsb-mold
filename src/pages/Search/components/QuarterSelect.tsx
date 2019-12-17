@@ -49,6 +49,10 @@ function itemToString(item: YearQuarter) {
   return `${quarterToString(item.quarter)} ${item.year}`
 }
 
+export function formatQuarterString(quarter: string) {
+  return itemToString(parseQuarter(quarter))
+}
+
 const QUARTERS = [1, 0, -1, -2, -3, -4]
 
 type CourseSelectInternalProps = {
