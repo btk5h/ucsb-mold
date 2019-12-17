@@ -56,9 +56,9 @@ const GEListWrapper = tw.div`
 
 const GEPill = tw.span`
   px-2 py-1 mr-1
-  bg-blue-500
+  bg-blue-200
   rounded-full
-  text-white text-xs
+  text-blue-900 text-xs font-bold
 `
 
 type GeneralEducationProps = {
