@@ -26,7 +26,7 @@ const Units = tw.span`
 `
 
 const Description = tw.p`
-  mt-2
+  my-2
 `
 
 function gradingOptionToString(gradingOption?: string) {
@@ -73,17 +73,7 @@ const GEList: React.FC<GeneralEducationProps> = props => {
     return null
   }
 
-  return (
-    <GEListWrapper>
-      {generalEducation
-        .filter(ge => ge.geCollege === "UCSB" || ge.geCollege === geCollege)
-        .map(ge => (
-          <GEPill key={`${ge.geCollege} ${ge.geCode}`}>
-            {ge.geCode && ge.geCode.trim()}
-          </GEPill>
-        ))}
-    </GEListWrapper>
-  )
+  return <GEListWrapper>{applicableGEs}</GEListWrapper>
 }
 
 type ClassDetailsProps = {
