@@ -69,7 +69,19 @@ type GeneralEducationProps = {
 const GEList: React.FC<GeneralEducationProps> = props => {
   const { generalEducation, geCollege = "ENGR" } = props
 
-  if (!generalEducation || generalEducation.length === 0) {
+  if (!generalEducation) {
+    return null
+  }
+
+  const applicableGEs = generalEducation
+    .filter(ge => ge.geCollege === "UCSB" || ge.geCollege === geCollege)
+    .map(ge => (
+      <GEPill key={`${ge.geCollege} ${ge.geCode}`}>
+        {ge.geCode && ge.geCode.trim()}
+      </GEPill>
+    ))
+
+  if (applicableGEs.length === 0) {
     return null
   }
 
