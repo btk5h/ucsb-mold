@@ -16,6 +16,7 @@ const Wall = styled(InputBase).attrs({ as: "div" })`
     bg-white
     flex
     cursor-text
+    flex-wrap
   `};
 `
 
@@ -23,6 +24,7 @@ const SelectedValue = tw.span`
   px-2 py-1 mx-1
   rounded
   bg-green-200
+  flex-none
 `
 
 const Input = tw.input`
@@ -164,16 +166,14 @@ const MultiSelect = <T extends any>(props: MultiSelectProps<T>) => {
         <Wrapper {...getRootProps()}>
           <Label {...getLabelProps()}>{label}</Label>
           <Wall onClick={focusInput}>
-            <span>
-              {values.map(item => (
-                <SelectedValue
-                  key={keyFunction(item)}
-                  onClick={() => onSelection(item)}
-                >
-                  {itemToString(item)}
-                </SelectedValue>
-              ))}
-            </span>
+            {values.map(item => (
+              <SelectedValue
+                key={keyFunction(item)}
+                onClick={() => onSelection(item)}
+              >
+                {itemToString(item)}
+              </SelectedValue>
+            ))}
             <Input
               ref={innerInput}
               {...(getInputProps({
