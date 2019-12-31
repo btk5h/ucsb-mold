@@ -55,12 +55,12 @@ export function formatQuarterString(quarter: string) {
 
 const QUARTERS = [1, 0, -1, -2, -3, -4]
 
-type CourseSelectInternalProps = {
+type QuarterSelectInternalProps = {
   value: YearQuarter | false
   onChange: (newValue: YearQuarter) => void
 }
 
-const CourseSelectInternal: React.FC<CourseSelectInternalProps> = props => {
+const QuarterSelectInternal: React.FC<QuarterSelectInternalProps> = props => {
   const { value, onChange } = props
   const { quarter } = CurrentQuarterResource.read()
 
@@ -83,12 +83,12 @@ const CourseSelectInternal: React.FC<CourseSelectInternalProps> = props => {
   )
 }
 
-type CourseSelectProps = {
+type QuarterSelectProps = {
   value?: string
   onChange: (newValue: string) => void
 }
 
-const CourseSelect: React.FC<CourseSelectProps> = props => {
+const QuarterSelect: React.FC<QuarterSelectProps> = props => {
   const { value, onChange } = props
 
   const onChangeQuarter = useCallback(
@@ -100,7 +100,7 @@ const CourseSelect: React.FC<CourseSelectProps> = props => {
 
   return (
     <Suspense fallback={<div>Loading</div>}>
-      <CourseSelectInternal
+      <QuarterSelectInternal
         value={!!value && parseQuarter(value)}
         onChange={onChangeQuarter}
       />
@@ -108,4 +108,4 @@ const CourseSelect: React.FC<CourseSelectProps> = props => {
   )
 }
 
-export default CourseSelect
+export default QuarterSelect
