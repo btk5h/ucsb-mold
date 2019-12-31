@@ -17,6 +17,10 @@ import ClassDetails from "./components/ClassDetails"
 import ResultsSummary from "./components/ResultsSummary"
 import { Class } from "api/generated/curriculums"
 
+const Title = tw.h1`
+  text-xl font-bold text-ucsb-gold
+`
+
 const Wrapper = tw.div`
   mx-auto
   max-w-6xl
@@ -27,8 +31,9 @@ const ResultsWrapper = tw(Wrapper)`
 `
 
 const FormOuter = tw.div`
-  pb-8
-  bg-blue-600
+  pt-2 pb-8
+  border-t-4 border-ucsb-gold
+  bg-ucsb-navy
   text-white
 `
 
@@ -127,6 +132,7 @@ const Search: React.FC = () => {
     <>
       <FormOuter>
         <Wrapper>
+          <Title>UCSB Mapache On-Line Data</Title>
           <FormWrapper>
             <QuarterSelectSection>
               <QuarterSelect value={quarter} onChange={setQuarter} />
