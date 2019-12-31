@@ -22,7 +22,12 @@ const Wrapper = tw.div`
   max-w-6xl
 `
 
-const Colored = tw.div`
+const ResultsWrapper = tw(Wrapper)`
+  -mt-5
+`
+
+const FormOuter = tw.div`
+  pb-8
   bg-blue-600
   text-white
 `
@@ -32,6 +37,7 @@ const FormWrapper = tw.div`
 `
 
 const FormSection = tw.div`
+  mt-2
   w-full
 `
 
@@ -119,7 +125,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <Colored>
+      <FormOuter>
         <Wrapper>
           <FormWrapper>
             <QuarterSelectSection>
@@ -141,12 +147,12 @@ const Search: React.FC = () => {
             </FormButton>
           </FormWrapper>
         </Wrapper>
-      </Colored>
-      <Wrapper>
+      </FormOuter>
+      <ResultsWrapper>
         <Suspense fallback={<div>Loading</div>}>
           <Results query={query} />
         </Suspense>
-      </Wrapper>
+      </ResultsWrapper>
     </>
   )
 }
