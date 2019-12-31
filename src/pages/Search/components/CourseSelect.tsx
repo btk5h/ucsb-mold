@@ -34,6 +34,7 @@ type RowProps = {
 const Row = styled.div<RowProps>`
   ${tw`
     p-2
+    text-black
   `}
   ${props => props.isHighlighted && tw`bg-green-200`}
 `

@@ -22,6 +22,11 @@ const Wrapper = tw.div`
   max-w-6xl
 `
 
+const Colored = tw.div`
+  bg-blue-600
+  text-white
+`
+
 const FormWrapper = tw.div`
   flex flex-wrap
 `
@@ -34,7 +39,7 @@ const FormButton = tw.button`
   w-full
   py-4 mt-3
   rounded
-  hover:bg-gray-300
+  hover:bg-darken
 `
 
 const QuarterSelectSection = tw(FormSection)`
@@ -113,27 +118,36 @@ const Search: React.FC = () => {
   useObjectInURL(query)
 
   return (
-    <Wrapper>
-      <FormWrapper>
-        <QuarterSelectSection>
-          <QuarterSelect value={quarter} onChange={setQuarter} />
-        </QuarterSelectSection>
-        <CourseSelectSection>
-          <CourseSelect value={course} onChange={setCourse} />
-        </CourseSelectSection>
-        {advancedSearch && (
-          <FormSection>
-            <CourseLevelSelect value={courseLevel} onChange={setCourseLevel} />
-          </FormSection>
-        )}
-        <FormButton onClick={toggleAdvancedSearch}>
-          {advancedSearch ? "Hide" : "Show"} Advanced Search
-        </FormButton>
-      </FormWrapper>
-      <Suspense fallback={<div>Loading</div>}>
-        <Results query={query} />
-      </Suspense>
-    </Wrapper>
+    <>
+      <Colored>
+        <Wrapper>
+          <FormWrapper>
+            <QuarterSelectSection>
+              <QuarterSelect value={quarter} onChange={setQuarter} />
+            </QuarterSelectSection>
+            <CourseSelectSection>
+              <CourseSelect value={course} onChange={setCourse} />
+            </CourseSelectSection>
+            {advancedSearch && (
+              <FormSection>
+                <CourseLevelSelect
+                  value={courseLevel}
+                  onChange={setCourseLevel}
+                />
+              </FormSection>
+            )}
+            <FormButton onClick={toggleAdvancedSearch}>
+              {advancedSearch ? "Hide" : "Show"} Advanced Search
+            </FormButton>
+          </FormWrapper>
+        </Wrapper>
+      </Colored>
+      <Wrapper>
+        <Suspense fallback={<div>Loading</div>}>
+          <Results query={query} />
+        </Suspense>
+      </Wrapper>
+    </>
   )
 }
 
