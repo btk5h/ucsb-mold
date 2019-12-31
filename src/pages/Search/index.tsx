@@ -22,6 +22,7 @@ const Title = tw.h1`
 `
 
 const Wrapper = tw.div`
+  relative
   mx-auto
   max-w-6xl
 `

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import tw from "tailwind.macro"
 import styled from "styled-components/macro"
 import { useInView } from "react-intersection-observer"
@@ -8,22 +8,38 @@ import courses from "data/courses.json"
 
 import { formatQuarterString } from "./QuarterSelect"
 
+const Sentinel = tw.div`
+  absolute top-0
+  mt-5
+`
+
 type CardProps = {
   sticky: boolean
 }
+
+const cardSticky = tw`
+  mx-2
+  shadow-lg
+  bg-ucsb-navy
+  text-white
+`
+
+const cardNotSticky = tw`
+  shadow
+`
 
 const Card = styled.div<CardProps>`
   ${tw`
     sticky
     flex 
-    mx-2 py-2 px-4
+    py-2 px-4
     bg-white
     rounded
   `};
 
-  ${props => (props.sticky ? tw`shadow-lg` : tw`shadow`)};
-
+  ${props => (props.sticky ? cardSticky : cardNotSticky)};
   top: 0.25rem;
+  transition: all 200ms ease;
 `
 
 type ResultsSummaryProps = {
@@ -36,18 +52,25 @@ const ResultsSummary: React.FC<ResultsSummaryProps> = props => {
 
   const [ref, inView] = useInView()
 
+  // this hack gives useInView time to resolve
+  // we use it to prevent transitions from running erroneously on mount
+  const [initialRender, setInitialRender] = useState(true)
+  useEffect(() => {
+    setInitialRender(false)
+  }, [])
+
   // @ts-ignore
   const subject = courses[query.subjectCode]
 
   return (
     <>
-      <div ref={ref} />
-      <Card sticky={!inView}>
+      <Card sticky={!inView && !initialRender}>
         <div>
           {formatQuarterString(query.quarter)} — {subject} ({results.total}{" "}
           results)
         </div>
       </Card>
+      <Sentinel ref={ref} />
     </>
   )
 }
