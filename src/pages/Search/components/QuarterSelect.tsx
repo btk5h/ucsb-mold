@@ -1,4 +1,5 @@
-import React, { Suspense, useCallback } from "react"
+import React, { Suspense, useCallback, useEffect, useMemo } from "react"
+import { parseJSON, isAfter } from "date-fns"
 
 import Select from "components/Select"
 import { CurrentQuarterResource } from "resources/quartercalendar"
@@ -62,15 +63,26 @@ type QuarterSelectInternalProps = {
 
 const QuarterSelectInternal: React.FC<QuarterSelectInternalProps> = props => {
   const { value, onChange } = props
-  const { quarter } = CurrentQuarterResource.read()
+  const { quarter, lastDayToAddUnderGrad } = CurrentQuarterResource.read()
 
-  const baseQuarter = parseQuarter(quarter as string)
+  const baseQuarter = useMemo(() => parseQuarter(quarter as string), [quarter])
+  const quarters = useMemo(
+    () => QUARTERS.map(a => adjustQuarter(baseQuarter, a)),
+    [baseQuarter]
+  )
 
-  if (!value) {
-    onChange(baseQuarter)
-  }
+  useEffect(() => {
+    if (!value) {
+      const endDate = parseJSON(lastDayToAddUnderGrad as string)
 
-  const quarters = QUARTERS.map(a => adjustQuarter(baseQuarter, a))
+      // set default date to the current or next quarter if more relevant
+      if (isAfter(new Date(), endDate)) {
+        onChange(quarters[0])
+      } else {
+        onChange(quarters[1])
+      }
+    }
+  }, [value, onChange, quarters, lastDayToAddUnderGrad])
 
   return (
     <Select
