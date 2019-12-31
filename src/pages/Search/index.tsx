@@ -1,4 +1,10 @@
-import React, { Suspense, useCallback, useState, useEffect } from "react"
+import React, {
+  Suspense,
+  useCallback,
+  useState,
+  useEffect,
+  useMemo
+} from "react"
 import tw from "tailwind.macro"
 import { useHistory, useLocation } from "react-router-dom"
 import qs from "qs"
@@ -43,7 +49,7 @@ type ResultsProps = {
   query: SearchResourceOptions
 }
 
-const Results: React.FC<ResultsProps> = props => {
+const Results: React.FC<ResultsProps> = React.memo(props => {
   const { query } = props
 
   if (!query.quarter) {
@@ -61,7 +67,7 @@ const Results: React.FC<ResultsProps> = props => {
         ))}
     </div>
   )
-}
+})
 
 function useQuery() {
   const location = useLocation()
@@ -89,11 +95,14 @@ const Search: React.FC = () => {
     setAdvancedSearch(prevState => !prevState)
   }, [])
 
-  const query: any = {
-    quarter,
-    subjectCode: course,
-    objLevelCode: courseLevel
-  }
+  const query: any = useMemo(
+    () => ({
+      quarter,
+      subjectCode: course,
+      objLevelCode: courseLevel
+    }),
+    [quarter, course, courseLevel]
+  )
 
   for (const key of Object.keys(query)) {
     if (!query[key]) {
