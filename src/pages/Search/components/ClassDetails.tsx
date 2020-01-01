@@ -42,7 +42,7 @@ function gradingOptionToString(gradingOption?: string) {
 
 function unitsString(c: Class) {
   if (c.unitsFixed) {
-    return `${c.unitsFixed} Unit${c.unitsFixed > 1 && "s"}`
+    return `${c.unitsFixed} Unit${c.unitsFixed > 1 ? "s" : ""}`
   }
 
   if (c.unitsVariableHigh) {
