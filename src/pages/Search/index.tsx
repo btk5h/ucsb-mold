@@ -15,6 +15,7 @@ import QuarterSelect from "./components/QuarterSelect"
 import CourseLevelSelect from "./components/CourseLevelSelect"
 import ClassDetails from "./components/ClassDetails"
 import ResultsSummary from "./components/ResultsSummary"
+import ResultsPlaceholder from "./components/ResultsPlaceholder"
 import { Class } from "api/generated/curriculums"
 
 const Title = tw.h1`
@@ -156,7 +157,7 @@ const Search: React.FC = () => {
         </Wrapper>
       </FormOuter>
       <ResultsWrapper>
-        <Suspense fallback={<div>Loading</div>}>
+        <Suspense fallback={<ResultsPlaceholder />}>
           <Results query={query} />
         </Suspense>
       </ResultsWrapper>
