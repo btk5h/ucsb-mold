@@ -7,6 +7,8 @@ import {
 } from "react-router-dom"
 import tw from "tailwind.macro"
 
+import GlobalStyles from "styles/globalStyles"
+
 const SearchPage = React.lazy(() => import("pages/Search"))
 
 const PageWrapper = tw.div`
@@ -17,16 +19,19 @@ const PageWrapper = tw.div`
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <PageWrapper>
-        <Suspense fallback={<div>Loading</div>}>
-          <Switch>
-            <Redirect exact from="/" to="/search" />
-            <Route exact path="/search" component={SearchPage} />
-          </Switch>
-        </Suspense>
-      </PageWrapper>
-    </Router>
+    <>
+      <GlobalStyles />
+      <Router>
+        <PageWrapper>
+          <Suspense fallback={<div>Loading</div>}>
+            <Switch>
+              <Redirect exact from="/" to="/search" />
+              <Route exact path="/search" component={SearchPage} />
+            </Switch>
+          </Suspense>
+        </PageWrapper>
+      </Router>
+    </>
   )
 }
 

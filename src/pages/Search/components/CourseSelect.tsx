@@ -34,8 +34,9 @@ type RowProps = {
 const Row = styled.div<RowProps>`
   ${tw`
     p-2
+    text-off-black
   `}
-  ${props => props.isHighlighted && tw`bg-green-200`}
+  ${props => props.isHighlighted && tw`bg-highlight`}
 `
 
 const CourseCode = tw.span`
