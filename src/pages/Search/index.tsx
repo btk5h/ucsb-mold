@@ -1,26 +1,16 @@
-import React, {
-  Suspense,
-  useCallback,
-  useState,
-  useEffect,
-  useMemo
-} from "react"
+import React, { Suspense, useMemo, useState } from "react"
 import tw from "tailwind.macro"
-import { useHistory, useLocation } from "react-router-dom"
-import qs from "qs"
 
 import { SearchResource, SearchResourceOptions } from "resources/curriculums"
+import NavBar from "components/NavBar"
 import CourseSelect from "./components/CourseSelect"
 import QuarterSelect from "./components/QuarterSelect"
-import CourseLevelSelect from "./components/CourseLevelSelect"
 import ClassDetails from "./components/ClassDetails"
 import ResultsSummary from "./components/ResultsSummary"
 import ResultsPlaceholder from "./components/ResultsPlaceholder"
+import AdvancedSearchOptions from "./components/AdvancedSearchOptions"
 import { Class } from "api/generated/curriculums"
-
-const Title = tw.h1`
-  text-xl font-bold text-ucsb-gold
-`
+import { useObjectInURL, useQuery } from "utils/hooks"
 
 const Wrapper = tw.div`
   relative
@@ -33,8 +23,7 @@ const ResultsWrapper = tw(Wrapper)`
 `
 
 const FormOuter = tw.div`
-  pt-2 pb-8
-  border-t-4 border-ucsb-gold
+  pb-8
   bg-ucsb-navy
   text-white
 `
@@ -46,13 +35,6 @@ const FormWrapper = tw.div`
 const FormSection = tw.div`
   mt-2
   w-full
-`
-
-const FormButton = tw.button`
-  w-full
-  py-4 mt-3
-  rounded
-  hover:bg-darken
 `
 
 const QuarterSelectSection = tw(FormSection)`
@@ -87,39 +69,19 @@ const Results: React.FC<ResultsProps> = React.memo(props => {
   )
 })
 
-function useQuery() {
-  const location = useLocation()
-  return qs.parse(location.search, { ignoreQueryPrefix: true })
-}
-
-function useObjectInURL(query: any) {
-  const history = useHistory()
-  const search = qs.stringify(query)
-
-  useEffect(() => {
-    history.replace({ search })
-  }, [history, search])
-}
-
 const Search: React.FC = () => {
   const params = useQuery()
   const [quarter, setQuarter] = useState(params.quarter)
   const [course, setCourse] = useState(params.subjectCode || "")
-  const [courseLevel, setCourseLevel] = useState("")
-
-  const [advancedSearch, setAdvancedSearch] = useState(false)
-
-  const toggleAdvancedSearch = useCallback(() => {
-    setAdvancedSearch(prevState => !prevState)
-  }, [])
+  const [advancedSearch, setAdvancedSearch] = useState({})
 
   const query: any = useMemo(
     () => ({
       quarter,
       subjectCode: course,
-      objLevelCode: courseLevel
+      ...advancedSearch
     }),
-    [quarter, course, courseLevel]
+    [quarter, course, advancedSearch]
   )
 
   for (const key of Object.keys(query)) {
@@ -132,9 +94,9 @@ const Search: React.FC = () => {
 
   return (
     <>
+      <NavBar></NavBar>
       <FormOuter>
         <Wrapper>
-          <Title>UCSB Mapache On-Line Data</Title>
           <FormWrapper>
             <QuarterSelectSection>
               <QuarterSelect value={quarter} onChange={setQuarter} />
@@ -142,17 +104,9 @@ const Search: React.FC = () => {
             <CourseSelectSection>
               <CourseSelect value={course} onChange={setCourse} />
             </CourseSelectSection>
-            {advancedSearch && (
-              <FormSection>
-                <CourseLevelSelect
-                  value={courseLevel}
-                  onChange={setCourseLevel}
-                />
-              </FormSection>
-            )}
-            <FormButton onClick={toggleAdvancedSearch}>
-              {advancedSearch ? "Hide" : "Show"} Advanced Search
-            </FormButton>
+            <FormSection>
+              <AdvancedSearchOptions onChange={setAdvancedSearch} />
+            </FormSection>
           </FormWrapper>
         </Wrapper>
       </FormOuter>
