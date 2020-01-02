@@ -53,7 +53,7 @@ const Results: React.FC<ResultsProps> = React.memo(props => {
   const { query } = props
 
   if (!query.quarter) {
-    return <>Dude</>
+    return <ResultsPlaceholder />
   }
 
   const info: any = SearchResource.read(query)
