@@ -3,6 +3,7 @@ import tw from "tailwind.macro"
 
 import { useQuery } from "utils/hooks"
 import CourseLevelSelect from "./advanced/CourseLevelSelect"
+import InstructorInput from "./advanced/InstructorInput"
 
 const Label = tw.span`
   font-semibold
@@ -58,6 +59,12 @@ const OPTIONS: SearchOption<any>[] = [
     key: "objLevelCode",
     initialValue: "",
     component: CourseLevelSelect
+  },
+  {
+    name: "Instructor",
+    key: "instructor",
+    initialValue: "",
+    component: InstructorInput
   }
 ]
 
