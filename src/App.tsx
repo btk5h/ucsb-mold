@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom"
 import tw from "tailwind.macro"
+import Helmet from "react-helmet"
 
 import GlobalStyles from "styles/globalStyles"
 
@@ -20,6 +21,9 @@ const PageWrapper = tw.div`
 const App: React.FC = () => {
   return (
     <>
+      <Helmet>
+        <title>MOLD</title>
+      </Helmet>
       <GlobalStyles />
       <Router>
         <PageWrapper>
