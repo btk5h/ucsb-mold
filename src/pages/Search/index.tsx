@@ -2,6 +2,7 @@ import React, { Suspense, useMemo, useState } from "react"
 import tw from "tailwind.macro"
 
 import { SearchResource, SearchResourceOptions } from "resources/curriculums"
+import NavBar from "components/NavBar"
 import CourseSelect from "./components/CourseSelect"
 import QuarterSelect from "./components/QuarterSelect"
 import ClassDetails from "./components/ClassDetails"
@@ -10,10 +11,6 @@ import ResultsPlaceholder from "./components/ResultsPlaceholder"
 import AdvancedSearchOptions from "./components/AdvancedSearchOptions"
 import { Class } from "api/generated/curriculums"
 import { useObjectInURL, useQuery } from "utils/hooks"
-
-const Title = tw.h1`
-  text-xl font-bold text-ucsb-gold
-`
 
 const Wrapper = tw.div`
   relative
@@ -26,8 +23,7 @@ const ResultsWrapper = tw(Wrapper)`
 `
 
 const FormOuter = tw.div`
-  pt-2 pb-8
-  border-t-4 border-ucsb-gold
+  pb-8
   bg-ucsb-navy
   text-white
 `
@@ -98,9 +94,9 @@ const Search: React.FC = () => {
 
   return (
     <>
+      <NavBar></NavBar>
       <FormOuter>
         <Wrapper>
-          <Title>UCSB Mapache On-Line Data</Title>
           <FormWrapper>
             <QuarterSelectSection>
               <QuarterSelect value={quarter} onChange={setQuarter} />
