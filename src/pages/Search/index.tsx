@@ -9,6 +9,7 @@ import ClassDetails from "./components/ClassDetails"
 import ResultsSummary from "./components/ResultsSummary"
 import ResultsPlaceholder from "./components/ResultsPlaceholder"
 import AdvancedSearchOptions from "./components/AdvancedSearchOptions"
+import JumpToSearchButton from "components/JumpToSearchButton"
 import { Class } from "api/generated/curriculums"
 import { useObjectInURL, useQuery } from "utils/hooks"
 
@@ -115,6 +116,7 @@ const Search: React.FC = () => {
           <Results query={query} />
         </Suspense>
       </ResultsWrapper>
+      <JumpToSearchButton />
     </>
   )
 }
