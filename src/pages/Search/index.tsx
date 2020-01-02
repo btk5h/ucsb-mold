@@ -94,7 +94,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar />
       <FormOuter>
         <Wrapper>
           <FormWrapper>
