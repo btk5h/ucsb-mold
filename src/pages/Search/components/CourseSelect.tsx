@@ -41,9 +41,9 @@ const Row = styled.div<RowProps>`
 
 const CourseCode = tw.span`
   px-2 py-1 mr-2
-  text-xs font-bold text-indigo-700
+  text-xs font-bold text-pink-700
   rounded-full
-  bg-indigo-200
+  bg-pink-200
 `
 
 type CourseSelectProps = {

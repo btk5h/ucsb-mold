@@ -9,6 +9,7 @@ import ClassDetails from "./components/ClassDetails"
 import ResultsSummary from "./components/ResultsSummary"
 import ResultsPlaceholder from "./components/ResultsPlaceholder"
 import AdvancedSearchOptions from "./components/AdvancedSearchOptions"
+import JumpToSearchButton from "components/JumpToSearchButton"
 import { Class } from "api/generated/curriculums"
 import { useObjectInURL, useQuery } from "utils/hooks"
 
@@ -53,7 +54,7 @@ const Results: React.FC<ResultsProps> = React.memo(props => {
   const { query } = props
 
   if (!query.quarter) {
-    return <>Dude</>
+    return <ResultsPlaceholder />
   }
 
   const info: any = SearchResource.read(query)
@@ -94,7 +95,7 @@ const Search: React.FC = () => {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar />
       <FormOuter>
         <Wrapper>
           <FormWrapper>
@@ -115,6 +116,7 @@ const Search: React.FC = () => {
           <Results query={query} />
         </Suspense>
       </ResultsWrapper>
+      <JumpToSearchButton />
     </>
   )
 }
