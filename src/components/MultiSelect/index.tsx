@@ -60,6 +60,7 @@ type MultiSelectProps<T> = {
   values: T[]
   items: T[]
   itemToString?: (item: T) => string
+  itemToLabelString?: (item: T) => string
   filterPredicate?: (inputValue: string | null, item: T) => boolean
   keyFunction?: (item: T) => string
   children?: (item: T, options: RenderPropOptions) => React.ReactElement
@@ -72,6 +73,7 @@ const MultiSelect = <T extends any>(props: MultiSelectProps<T>) => {
     values,
     items,
     itemToString = (item: T) => String(item),
+    itemToLabelString = itemToString,
     filterPredicate = (inputValue: string | null, item: T) =>
       !inputValue ||
       itemToString(item)
@@ -171,7 +173,7 @@ const MultiSelect = <T extends any>(props: MultiSelectProps<T>) => {
                 key={keyFunction(item)}
                 onClick={() => onSelection(item)}
               >
-                {itemToString(item)}
+                {itemToLabelString(item)}
               </SelectedValue>
             ))}
             <Input
