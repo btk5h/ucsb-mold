@@ -40,8 +40,9 @@ type RenderPropOptions = {
 const DefaultRow = styled.div<RenderPropOptions>`
   ${tw`
     px-4 py-2
+    text-off-black
   `}
-  ${props => props.isHighlighted && tw`bg-green-200`}
+  ${props => props.isHighlighted && tw`bg-highlight`}
   ${props => props.isSelected && tw`font-bold`}
 `
 
