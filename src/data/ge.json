@@ -1,0 +1,19 @@
+{
+  "ENGR": {
+    "name": "College of Engineering",
+    "areas": {
+      "A1": "English Reading and Composition",
+      "A2": "English Reading and Composition",
+      "D": "Social Science",
+      "E": "Culture and Thought",
+      "F": "Arts",
+      "G": "Literature",
+      "H": "Foreign Language",
+      "WRT": "Writing",
+      "ETH": "Ethnicity",
+      "EUR": "European Traditions",
+      "NWC": "World Cultures",
+      "AMH": "American History and Institutions"
+    }
+  }
+}
