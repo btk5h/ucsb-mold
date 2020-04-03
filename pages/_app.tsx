@@ -1,6 +1,8 @@
+import { AppProps } from "next/app";
+
 import "tailwindcss/dist/base.css";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
 }
 
