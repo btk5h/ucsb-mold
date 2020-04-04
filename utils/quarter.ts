@@ -24,6 +24,15 @@ export function asQuarterObject(q: QuarterLike): QuarterObject {
   return q as QuarterObject;
 }
 
+export function asInternalQuarter(q: QuarterLike): InternalQuarter {
+  if (typeof q === "string" && q.length === 5) {
+    return q;
+  }
+
+  const quarter = asQuarterObject(q);
+  return `${quarter.year}${quarter.quarter}`;
+}
+
 function mod(n: number, m: number): number {
   return ((n % m) + m) % m;
 }
