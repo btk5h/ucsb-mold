@@ -69,7 +69,7 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
   } = props;
 
   const safeItemToString = useCallback(
-    (item: T) => item && itemToString(item),
+    (item: T) => (item != null ? itemToString(item) : ""),
     [itemToString]
   );
 
