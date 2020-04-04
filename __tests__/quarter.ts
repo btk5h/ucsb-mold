@@ -4,6 +4,7 @@ import {
   asInternalQuarter,
   asQuarterObject,
   QuarterObject,
+  quarterRange,
 } from "utils/quarter";
 
 describe("asQuarterObject", () => {
@@ -93,5 +94,26 @@ describe("adjustQuarter", () => {
       year: 2019,
       quarter: 4,
     });
+  });
+});
+
+describe("quarterRange", () => {
+  it("returns an empty array when count is 0", () => {
+    expect(quarterRange({ start: "20201", count: 0 })).toStrictEqual([]);
+  });
+
+  it("returns a list of quarter objects in decrementing order by default", () => {
+    expect(quarterRange({ start: "20201", count: 2 })).toStrictEqual([
+      { year: 2020, quarter: 1 },
+      { year: 2019, quarter: 4 },
+    ]);
+  });
+
+  it("increments by the step parameter", () => {
+    expect(quarterRange({ start: "20201", step: 2, count: 3 })).toStrictEqual([
+      { year: 2020, quarter: 1 },
+      { year: 2020, quarter: 3 },
+      { year: 2021, quarter: 1 },
+    ]);
   });
 });
