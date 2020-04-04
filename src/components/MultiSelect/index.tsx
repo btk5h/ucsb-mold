@@ -40,8 +40,9 @@ type RenderPropOptions = {
 const DefaultRow = styled.div<RenderPropOptions>`
   ${tw`
     px-4 py-2
+    text-off-black
   `}
-  ${props => props.isHighlighted && tw`bg-green-200`}
+  ${props => props.isHighlighted && tw`bg-highlight`}
   ${props => props.isSelected && tw`font-bold`}
 `
 
@@ -60,6 +61,7 @@ type MultiSelectProps<T> = {
   values: T[]
   items: T[]
   itemToString?: (item: T) => string
+  itemToLabelString?: (item: T) => string
   filterPredicate?: (inputValue: string | null, item: T) => boolean
   keyFunction?: (item: T) => string
   children?: (item: T, options: RenderPropOptions) => React.ReactElement
@@ -72,6 +74,7 @@ const MultiSelect = <T extends any>(props: MultiSelectProps<T>) => {
     values,
     items,
     itemToString = (item: T) => String(item),
+    itemToLabelString = itemToString,
     filterPredicate = (inputValue: string | null, item: T) =>
       !inputValue ||
       itemToString(item)
@@ -171,7 +174,7 @@ const MultiSelect = <T extends any>(props: MultiSelectProps<T>) => {
                 key={keyFunction(item)}
                 onClick={() => onSelection(item)}
               >
-                {itemToString(item)}
+                {itemToLabelString(item)}
               </SelectedValue>
             ))}
             <Input

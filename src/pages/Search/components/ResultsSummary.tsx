@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer"
 import { SearchResourceOptions } from "resources/curriculums"
 import courses from "data/courses.json"
 
-import { formatQuarterString } from "./QuarterSelect"
+import { formatQuarterString } from "utils/quarter"
 
 const Sentinel = tw.div`
   absolute top-0

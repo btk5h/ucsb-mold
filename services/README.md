@@ -1,6 +1,6 @@
 # sbcourses backend
 
-The backend that powers the sbcourses web app.
+The backend that powers the MOLD web app.
 
 ## Getting Started
 
@@ -27,13 +27,13 @@ parameter `sbcourses-consumer-secret`, substituting your app's consumer secret t
 
 ### Deployment
 
-To deploy all of the sbcourses services, run the following command in your terminal:
+To deploy all the MOLD services, run the following command in your terminal:
 
 ```
 ./deploy_all
 ```
 
-This will run `sls deploy -v` in all of the service directories in the correct order, ensuring all backend services
+This will run `sls deploy -v` in all the service directories in the correct order, ensuring all backend services
 are deployed correctly.
 
 If you need to update an individual backend service in the future, you can run `sls deploy -v` in the directory

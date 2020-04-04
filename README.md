@@ -1,14 +1,16 @@
-# sbcourses
+# Project MOLD
+
+MOLD (Mapache On-Line Data) aims to be a complete overhaul of [GOLD](https://my.sa.ucsb.edu/gold/).
 
 ## Getting Started
 
-In order to start working on sbcourses, clone the repository and install dependencies using
+In order to start working on MOLD, clone the repository and install dependencies using
 [yarn](https://yarnpkg.com/). Note: There is also a `setup-workspace` script that downloads UCSB's API docs
 and generates their typescript types.
 
 ```
-git clone https://github.com/btk5h/sbcourses.git
-cd sbcourses
+git clone https://github.com/btk5h/ucsb-mold.git
+cd ucsb-mold
 yarn install
 yarn setup-workspace
 ```
