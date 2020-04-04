@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# Project MOLD
+
+MOLD (Mapache On-Line Data) aims to be a complete overhaul of [GOLD](https://my.sa.ucsb.edu/gold/).
+
+> This branch is a rewrite of MOLD in Next.js instead of Serverless + create-react-app. The original source can be viewed on the [v1 branch](https://github.com/btk5h/ucsb-mold/tree/v1).
 
 ## Getting Started
 
