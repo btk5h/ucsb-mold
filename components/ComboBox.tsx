@@ -97,7 +97,7 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
           return {
             ...options.changes,
             selectedItem: value!,
-            inputValue: value ? itemToString(value) : "",
+            inputValue: value != null ? itemToString(value) : "",
           };
       }
 
@@ -108,7 +108,7 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
 
   const onStateChange = useCallback(
     (state: Partial<UseComboboxState<T>>) => {
-      if (state.selectedItem) {
+      if (state.selectedItem != null) {
         onChange(state.selectedItem);
       }
     },
