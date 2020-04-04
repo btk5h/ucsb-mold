@@ -1,6 +1,6 @@
 type QuarterOfYear = 1 | 2 | 3 | 4;
 
-type InternalQuarter = string;
+export type InternalQuarter = string;
 
 export type QuarterObject = {
   year: number;
