@@ -162,7 +162,7 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
       >
         {isOpen &&
           filteredItems.map((item, index) => (
-            <li {...getItemProps({ item, index, key: keyFunction(item) })}>
+            <li key={keyFunction(item)} {...getItemProps({ item, index })}>
               {renderItem(item, {
                 isHighlighted: index === highlightedIndex,
               })}
