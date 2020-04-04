@@ -35,7 +35,6 @@ function defaultRowRenderer<T>(itemToString: (item: T) => string) {
 
 type SelectProps<T> = {
   label: string;
-  value: T;
   items: T[];
   autoDetectInitialValue?: boolean;
   itemToString?: (item: T) => string;
@@ -43,9 +42,18 @@ type SelectProps<T> = {
   keyFunction?: (item: T) => string;
   children?: (item: T, options: RenderPropOptions) => React.ReactElement;
   onChange: (selection: T) => void;
+} & (SelectPropsRequiredValue<T> | SelectPropsAutoDetect<T>);
+
+type SelectPropsRequiredValue<T> = {
+  value: T;
 };
 
-const Select = <T extends any>(props: SelectProps<T>) => {
+type SelectPropsAutoDetect<T> = {
+  value?: T;
+  autoDetectInitialValue: true;
+};
+
+const ComboBox = <T extends any>(props: SelectProps<T>) => {
   const {
     label,
     value,
@@ -60,7 +68,23 @@ const Select = <T extends any>(props: SelectProps<T>) => {
     onChange,
   } = props;
 
-  const [inputValue, setInputValue] = useState(itemToString(value));
+  const safeItemToString = useCallback(
+    (item: T) => item && itemToString(item),
+    [itemToString]
+  );
+
+  const [inputValue, setInputValue] = useState(() =>
+    value
+      ? safeItemToString(value)
+      : autoDetectInitialValue
+      ? safeItemToString(items[0])
+      : ""
+  );
+
+  const filteredItems = useMemo(
+    () => items.filter((item) => filterPredicate(inputValue, item)),
+    [items, filterPredicate, inputValue]
+  );
 
   const stateReducer = useCallback(
     (
@@ -68,22 +92,18 @@ const Select = <T extends any>(props: SelectProps<T>) => {
       options: UseComboboxStateChangeOptions<T>
     ): UseComboboxState<T> => {
       switch (options.type) {
+        case useCombobox.stateChangeTypes.InputBlur:
         case useCombobox.stateChangeTypes.InputKeyDownEscape:
           return {
             ...options.changes,
-            selectedItem: value,
-            inputValue: itemToString(value),
+            selectedItem: value!,
+            inputValue: value ? itemToString(value) : "",
           };
       }
 
       return options.changes;
     },
     [itemToString, value]
-  );
-
-  const filteredItems = useMemo(
-    () => items.filter((item) => filterPredicate(inputValue, item)),
-    [items, filterPredicate, inputValue]
   );
 
   const onStateChange = useCallback(
@@ -113,7 +133,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
     items: filteredItems,
     defaultHighlightedIndex: 0,
     selectedItem: value,
-    itemToString,
+    itemToString: safeItemToString,
     inputValue: inputValue || "",
     onInputValueChange: ({ inputValue }) => setInputValue(inputValue || ""),
     onStateChange,
@@ -153,7 +173,7 @@ const Select = <T extends any>(props: SelectProps<T>) => {
   );
 };
 
-export default Select;
+export default ComboBox;
 
 type ObjectSelectOptions = {
   items: { [key: string]: string };
