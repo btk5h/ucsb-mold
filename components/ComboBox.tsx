@@ -123,6 +123,10 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
     }
   }, [autoDetectInitialValue, items, onChange, value]);
 
+  useEffect(() => {
+    setInputValue(value != null ? safeItemToString(value) : "");
+  }, [safeItemToString, value]);
+
   const {
     isOpen,
     getLabelProps,
