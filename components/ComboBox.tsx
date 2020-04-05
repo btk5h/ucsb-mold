@@ -109,7 +109,9 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
   const onStateChange = useCallback(
     (state: Partial<UseComboboxState<T>>) => {
       if (state.selectedItem != null) {
-        onChange(state.selectedItem);
+        requestAnimationFrame(() => {
+          onChange(state.selectedItem!);
+        });
       }
     },
     [onChange]
