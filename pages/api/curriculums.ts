@@ -7,10 +7,16 @@ type UserQuery = {
 };
 
 function userQueryToAPIQuery(query: UserQuery) {
-  return {
+  const result: any = {
     quarter: query.quarter,
-    subjectCode: query.subjectArea,
+    pageSize: 100,
   };
+
+  if (query.subjectArea) {
+    result.subjectCode = query.subjectArea;
+  }
+
+  return result;
 }
 
 const handler: NextApiHandler = async (req, res) => {
