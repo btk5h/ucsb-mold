@@ -28,6 +28,7 @@
     "qs": "^6.9.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-use": "^14.0.0",
     "tailwindcss": "^1.2.0",
     "twin.macro": "^1.0.0-alpha.8"
   },
