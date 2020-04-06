@@ -3,10 +3,12 @@ import React from "react";
 import ComboBox, { objectSelect } from "components/ComboBox";
 import courses from "data/courses.json";
 
-const courseOptions: any = {
-  "": "All Courses",
-  ...courses,
-};
+const comboboxOptions = objectSelect({
+  items: {
+    "": "All Courses",
+    ...courses,
+  },
+});
 
 type SubjectAreaComboBoxProps = {
   value?: string;
@@ -22,7 +24,7 @@ const SubjectAreaComboBox: React.FC<SubjectAreaComboBoxProps> = (props) => {
       value={value}
       autoDetectInitialValue
       onChange={onChange}
-      {...objectSelect({ items: courseOptions })}
+      {...comboboxOptions}
     />
   );
 };
