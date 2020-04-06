@@ -2,6 +2,7 @@ import React from "react";
 import tw from "twin.macro";
 
 import { Class, GeneralEducation } from "types/generated/curriculums";
+import SectionTable from "components/SectionTable";
 
 const Wrapper = tw.div`
   flex flex-col
@@ -104,6 +105,7 @@ const CourseInfo: React.FC<CourseInfoProps> = (props) => {
       </div>
       <GEList generalEducation={info.generalEducation} />
       <Description>{info.description}</Description>
+      <SectionTable sections={info.classSections} />
     </Wrapper>
   );
 };
