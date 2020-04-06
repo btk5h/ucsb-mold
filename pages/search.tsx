@@ -1,4 +1,5 @@
 import React from "react";
+import Head from "next/head";
 import tw from "twin.macro";
 import NavBar from "components/NavBar";
 import QuarterComboBox from "components/QuarterComboBox";
@@ -61,6 +62,9 @@ const SearchPage: React.FC = () => {
 
   return (
     <>
+      <Head>
+        <title>MOLD - Find Courses</title>
+      </Head>
       <NavBar />
       <FormOuter>
         <FormContainer>
