@@ -11,7 +11,7 @@ const comboboxOptions = objectSelect({
 });
 
 type SubjectAreaComboBoxProps = {
-  value?: string;
+  value: string;
   onChange: (newValue: string) => void;
 };
 
@@ -22,7 +22,6 @@ const SubjectAreaComboBox: React.FC<SubjectAreaComboBoxProps> = (props) => {
     <ComboBox
       label="Subject Area"
       value={value}
-      autoDetectInitialValue
       onChange={onChange}
       {...comboboxOptions}
     />

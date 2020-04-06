@@ -36,21 +36,12 @@ function defaultRowRenderer<T>(itemToString: (item: T) => string) {
 type SelectProps<T> = {
   label: string;
   items: T[];
-  autoDetectInitialValue?: boolean;
+  value: T;
   itemToString?: (item: T) => string;
   filterPredicate?: (inputValue: string | null, item: T) => boolean;
   keyFunction?: (item: T) => string;
   children?: (item: T, options: RenderPropOptions) => React.ReactElement;
   onChange: (selection: T) => void;
-} & (SelectPropsRequiredValue<T> | SelectPropsAutoDetect<T>);
-
-type SelectPropsRequiredValue<T> = {
-  value: T;
-};
-
-type SelectPropsAutoDetect<T> = {
-  value?: T;
-  autoDetectInitialValue: true;
 };
 
 const ComboBox = <T extends any>(props: SelectProps<T>) => {
@@ -58,7 +49,6 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
     label,
     value,
     items,
-    autoDetectInitialValue = false,
     itemToString = (item: T) => String(item),
     filterPredicate = (inputValue: string | null, item: T) =>
       !inputValue ||
@@ -74,11 +64,7 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
   );
 
   const [inputValue, setInputValue] = useState(() =>
-    value
-      ? safeItemToString(value)
-      : autoDetectInitialValue
-      ? safeItemToString(items[0])
-      : ""
+    value ? safeItemToString(value) : ""
   );
 
   const filteredItems = useMemo(
@@ -116,12 +102,6 @@ const ComboBox = <T extends any>(props: SelectProps<T>) => {
     },
     [onChange]
   );
-
-  useEffect(() => {
-    if (autoDetectInitialValue && !value) {
-      onChange(items[0]);
-    }
-  }, [autoDetectInitialValue, items, onChange, value]);
 
   useEffect(() => {
     setInputValue(value != null ? safeItemToString(value) : "");

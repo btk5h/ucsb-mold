@@ -10,7 +10,7 @@ import {
 } from "utils/quarter";
 
 type QuarterComboBoxProps = {
-  value?: string;
+  value: string;
   start: QuarterLike;
   count: number;
   onChange: (newValue: InternalQuarter) => void;
@@ -27,7 +27,6 @@ const QuarterComboBox: React.FC<QuarterComboBoxProps> = (props) => {
     <ComboBox
       label="Quarter"
       value={value}
-      autoDetectInitialValue
       items={quarters}
       onChange={onChange}
       itemToString={asHumanQuarter}
