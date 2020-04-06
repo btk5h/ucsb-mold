@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "setup-workspace": "run-s download-sources:* generate-types:*",
+    "download-sources:curriculums": "download https://developer.ucsb.edu/sites/default/files/openapi/curriculums-v1.out_.api_.yml > types/generated/curriculums.yml",
+    "generate-types:curriculums": "swagger-to-ts types/generated/curriculums.yml -o types/generated/curriculums.d.ts --nowrapper"
   },
   "jest": {
     "moduleDirectories": [
@@ -29,10 +32,12 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-use": "^14.0.0",
+    "swr": "^0.2.0",
     "tailwindcss": "^1.2.0",
     "twin.macro": "^1.0.0-alpha.8"
   },
   "devDependencies": {
+    "@manifoldco/swagger-to-ts": "^1.7.1",
     "@types/jest": "^25.2.1",
     "@types/node": "^13.11.0",
     "@types/qs": "^6.9.1",
@@ -40,12 +45,14 @@
     "@typescript-eslint/parser": "^2.26.0",
     "babel-plugin-macros": "^2.8.0",
     "dotenv": "^8.2.0",
+    "download-cli": "^1.1.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "husky": "^4.2.3",
     "jest": "^25.2.7",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.0.2",
     "pretty-quick": "^2.0.1",
     "typescript": "^3.8.3"
