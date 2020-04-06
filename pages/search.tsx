@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Head from "next/head";
 import tw from "twin.macro";
 import NavBar from "components/NavBar";
 import QuarterComboBox from "components/QuarterComboBox";
 import SubjectAreaComboBox from "components/SubjectAreaComboBox";
+import CourseQueryResults from "components/CourseQueryResults";
 import { useManagedQuery } from "utils/hooks";
 
 const Container = tw.div`
@@ -88,6 +89,7 @@ const SearchPage: React.FC = () => {
         <Card>
           <pre>{JSON.stringify(query, null, "\t")}</pre>
         </Card>
+        <CourseQueryResults query={query} />
       </ResultsContainer>
     </>
   );
