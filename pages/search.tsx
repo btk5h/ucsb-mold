@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import Head from "next/head";
 import tw from "twin.macro";
+import { Global } from "@emotion/core";
 import NavBar from "components/NavBar";
 import QuarterComboBox from "components/QuarterComboBox";
 import SubjectAreaComboBox from "components/SubjectAreaComboBox";
@@ -66,6 +67,7 @@ const SearchPage: React.FC = () => {
       <Head>
         <title>MOLD - Find Courses</title>
       </Head>
+      <Global styles={{ body: tw`bg-gray-100` }} />
       <NavBar />
       <FormOuter>
         <FormContainer>
